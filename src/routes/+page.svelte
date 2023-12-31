@@ -21,7 +21,12 @@
 	
 	  setInterval(async ()=>{
 	    //
-	    let res = await detector.detect(vsource)
+	    let track = stream
+	    	.getVideoTracks()[0]
+		.applyConstraints({
+		  focusMode: "continuous"
+		});
+	    let res = await detector.detect(vsource);
 	    //console.log(res);
 	    for(let match of res){
 	      //
@@ -32,7 +37,7 @@
 	      }
 	      console.log(match.format, match.rawValue);
 	    }
-	  }, 1000);
+	  }, 200);
 	}
 	onMount(()=>{
 	  //
