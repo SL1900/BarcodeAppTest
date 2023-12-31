@@ -1,5 +1,8 @@
 <script lang="ts">
   //
+	import eruda from "eruda";
+
+	eruda.init();
 </script>
 
 <main>
