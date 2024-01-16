@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { DecodeBarcode, EncodeBarcode, EncodeToFont } from "$lib/CodeEncoder";
-
 	//
 	import { BarcodeDetector } from "barcode-detector/pure";
 	import { onMount } from "svelte";
