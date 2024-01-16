@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { DecodeBarcode, EncodeBarcode, EncodeToFont } from "$lib/CodeEncoder";
+
 	//
 	import { BarcodeDetector } from "barcode-detector/pure";
 	import { onMount } from "svelte";
@@ -8,13 +10,7 @@
 	let img;
 	let vsource: HTMLVideoElement;
 
-	let list: {
-		[code: string]: {
-			format: string,
-			value: string,
-			time: number
-		}
-	} = {};
+	let list: { [code: string]: { format: string, value: string, time: number } } = {};
 
 	async function startCam() {
 		const stream = await navigator.mediaDevices.getUserMedia({
@@ -31,22 +27,26 @@
 				// @ts-ignore
 				focusMode: "continuous",
 			});
-			let res = await detector.detect(vsource);
-			//console.log(res);
-			for (let match of res) {
-				//
-				list[match.rawValue] = {
-					format: match.format,
-					value: match.rawValue,
-					time: Date.now(),
-				};
-				console.log(match.format, match.rawValue);
-			}
+			DetectCodes();
 		}, 200);
 	}
 	onMount(() => {
 		//
 	});
+
+	async function DetectCodes()
+	{
+		// 
+		let codes = await detector.detect(vsource);
+		for (let match of codes) {
+			list[match.rawValue] = {
+				format: match.format,
+				value: match.rawValue,
+				time: Date.now(),
+			};
+			console.log(match.format, match.rawValue);
+		}
+	}
 </script>
 
 <main>
