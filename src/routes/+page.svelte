@@ -8,7 +8,13 @@
 	let img;
 	let vsource: HTMLVideoElement;
 
-	let list = {};
+	let list: {
+		[code: string]: {
+			format: string,
+			value: string,
+			time: number
+		}
+	} = {};
 
 	async function startCam() {
 		const stream = await navigator.mediaDevices.getUserMedia({
